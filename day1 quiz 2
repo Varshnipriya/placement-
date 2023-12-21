@@ -1,0 +1,77 @@
+1. to find middile element
+#include <stdio.h>
+int main() {
+    int x, y, z;
+    printf("Enter the value of x: ");
+    scanf("%d", &x);
+    printf("Enter the value of y: ");
+    scanf("%d", &y);
+    printf("Enter the value of z: ");
+    scanf("%d", &z);
+    if ((x > y && x < z) || (x < y && x > z)) {
+        printf("1\n");
+    } else if ((y > x && y < z) || (y < x && y > z)) {
+        printf("2\n");
+    } else {
+        printf("3\n");
+    }
+    return 0;
+}
+
+2. stong or weak
+  #include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+int getStrength(char* password) {
+    int strength = 0;
+    if (strcspn(password, "0123456789") != strlen(password)) {
+        strength += 1;
+    }
+    if (strcspn(password, "abcdefghijklmnopqrstuvwxyz") != strlen(password)) {
+        strength += 1;
+    }
+    if (strcspn(password, "ABCDEFGHIJKLMNOPQRSTUVWXYZ") != strlen(password)) {
+        strength += 1;
+    }
+    if (strcspn(password, "!@#$%^&*()-+") != strlen(password)) {
+        strength += 1;
+    }
+    if (strlen(password) >= 8) {
+        strength += 1;
+    }
+    return strength;
+}
+int main() {
+    char password[100];
+    printf("Enter the password: ");
+    scanf("%s", password);
+    int strength = getStrength(password);
+    if (strength == 5) {
+        printf("Strong\n");
+    } else {
+        printf("Weak\n");
+    }
+
+    return 0;
+}
+3.
+  #include<stdio.h>
+int main() {
+    int x, y, z;
+    printf("\nEnter the total number of hours needed: ");
+    scanf("%d", &x);
+    printf("\nEnter the number of days: ");
+    scanf("%d", &y);
+    printf("\nEnter the number of workers: ");
+    scanf("%d", &z);
+    int a = y * 9 / 10;
+    int b = a * (10) * z;
+    if(b >= x) {
+        int c = b - x;
+        printf("\nNot enough time! %d hours needed", c);
+    } else {
+        int d = x - b;
+        printf("\nYes! %d hours left", d);
+    }
+    return 0;
+}
