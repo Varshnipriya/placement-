@@ -55,23 +55,26 @@ int main() {
     return 0;
 }
 3.
-  #include<stdio.h>
+#include <stdio.h>
 int main() {
-    int x, y, z;
-    printf("\nEnter the total number of hours needed: ");
-    scanf("%d", &x);
-    printf("\nEnter the number of days: ");
-    scanf("%d", &y);
-    printf("\nEnter the number of workers: ");
-    scanf("%d", &z);
-    int a = y * 9 / 10;
-    int b = a * (10) * z;
-    if(b >= x) {
-        int c = b - x;
-        printf("\nNot enough time! %d hours needed", c);
+    int total_hours_needed, number_of_days, number_of_workers;
+    printf("Enter total number of hours needed: ");
+    scanf("%d", &total_hours_needed);
+    printf("Enter number of days: ");
+    scanf("%d", &number_of_days);
+    printf("Enter number of workers: ");
+    scanf("%d", &number_of_workers);
+    int training_days = number_of_days / 10;
+    int workable_days = number_of_days - training_days;
+    int daily_work_hours = 8 + 2; // normal work hours + overtime
+    int total_work_hours = daily_work_hours * workable_days * number_of_workers;
+    int hours_difference = total_hours_needed - total_work_hours;
+
+    if (hours_difference <= 0) {
+        printf("Yes! %d hours left.", -hours_difference);
     } else {
-        int d = x - b;
-        printf("\nYes! %d hours left", d);
+        printf("Not enough time! %d hours needed.", hours_difference);
     }
     return 0;
 }
+ 
