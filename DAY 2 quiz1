@@ -1,0 +1,59 @@
+#include <stdio.h>
+#include <string.h>
+
+void justifySentence(char sentence[], int screenLength) {
+    int len = strlen(sentence);
+    int spaceCount = 0;
+
+    // Count the number of spaces in the sentence
+    for (int i = 0; i < len; i++) {
+        if (sentence[i] == ' ') {
+            spaceCount++;
+        }
+    }
+
+    // Calculate the number of spaces to insert between words
+    int spacesToInsert = screenLength - len + spaceCount;
+
+    // Calculate the number of spaces per gap
+    int spacesPerGap = (spaceCount > 0) ? spacesToInsert / spaceCount : 0;
+
+    // Calculate the remaining spaces after distributing equally
+    int remainingSpaces = (spaceCount > 0) ? spacesToInsert % spaceCount : 0;
+
+    // Justify the sentence and replace spaces with stars
+    for (int i = 0; i < len; i++) {
+        if (sentence[i] == ' ') {
+            int stars = spacesPerGap + ((remainingSpaces > 0) ? 1 : 0);
+            for (int j = 0; j < stars; j++) {
+                printf("*");
+            }
+            remainingSpaces--;
+        } else {
+            printf("%c", sentence[i]);
+        }
+    }
+
+    printf("\n");
+}
+
+int main() {
+    char sentence[100];
+    int screenLength;
+
+    // Input sentence from the user
+    printf(" Sentence = ");
+    fgets(sentence, sizeof(sentence), stdin);
+
+    // Remove the newline character from the entered sentence
+    sentence[strcspn(sentence, "\n")] = 0;
+
+    // Input screen length from the user
+    printf(" Screen length = ");
+    scanf("%d", &screenLength);
+
+    // Justify the sentence and print the result
+    justifySentence(sentence, screenLength);
+
+    return 0;
+}
