@@ -1,0 +1,125 @@
+1a)
+  #include <stdio.h>
+void swapByValue(int a, int b) {
+    int temp = a;
+    a = b;
+    b = temp;
+}
+
+int main() {
+    int a = 5, b= 10;
+    printf("Before swapping: a= %d, b= %d\n", a, b);
+    swapByValue(a, b);
+    printf("After swapping (Call By Value): a= %d, b= %d\n", a, b);
+    return 0;
+}
+
+1b)
+  #include <stdio.h>
+void swapByReference(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+int main() {
+    int num1 = 5, num2 = 10;
+    printf("Before swapping: num1 = %d, num2 = %d\n", num1, num2);
+    swapByReference(&num1, &num2);
+    printf("After swapping (Call By Reference): num1 = %d, num2 = %d\n", num1, num2);
+    return 0;
+}
+2)
+  #include <stdio.h>
+#include <stdlib.h>
+
+int compare(const void *a, const void *b) {
+    return (*(int *)a - *(int *)b);
+}
+
+int* findDuplicates(int arr[], int N, int* resultSize) {
+    qsort(arr, N, sizeof(int), compare);
+    
+    int *duplicates = (int *)malloc(N * sizeof(int));
+    int count = 0;
+
+    for (int i = 0; i < N - 1; i++) {
+        if (arr[i] == arr[i + 1]) {
+            duplicates[count++] = arr[i];
+        }
+    }
+
+    *resultSize = count;
+    
+    if (count == 0) {
+        free(duplicates);
+        duplicates = (int *)malloc(sizeof(int));
+        duplicates[0] = -1;
+        *resultSize = 1;
+    }
+
+    return duplicates;
+}
+
+int main() {
+    int N1 = 4;
+    int arr1[] = {0, 3, 1, 2};
+    int resultSize1;
+    int* result1 = findDuplicates(arr1, N1, &resultSize1);
+
+    printf("Example 1 Output: ");
+    for (int i = 0; i < resultSize1; i++) {
+        printf("%d ", result1[i]);
+    }
+    printf("\n");
+    free(result1);
+    int N2 = 5;
+    int arr2[] = {2, 3, 1, 2, 3};
+    int resultSize2;
+    int* result2 = findDuplicates(arr2, N2, &resultSize2);
+    printf("Example 2 Output: ");
+    for (int i = 0; i < resultSize2; i++) {
+        printf("%d ", result2[i]);
+    }
+    printf("\n");
+    free(result2);
+    return 0;
+}
+3)
+  #include <stdio.h>
+void printUnion(int arr1[], int m, int arr2[], int n) {
+    int i = 0, j = 0;
+
+    while (i < m && j < n) {
+        if (arr1[i] < arr2[j]) {
+            printf("%d ", arr1[i]);
+            i++;
+        } else if (arr2[j] < arr1[i]) {
+            printf("%d ", arr2[j]);
+            j++;
+        } else {
+            printf("%d ", arr1[i]);
+            i++;
+            j++;
+        }
+    }
+
+    while (i < m) {
+        printf("%d ", arr1[i]);
+        i++;
+    }
+
+    while (j < n) {
+        printf("%d ", arr2[j]);
+        j++;
+    }
+}
+
+int main() {
+    int arr1[] = {1, 2, 3, 4, 5};
+    int arr2[] = {1, 2, 3};
+    int m = sizeof(arr1) / sizeof(arr1[0]);
+    int n = sizeof(arr2) / sizeof(arr2[0]);
+    printf("Union of the arrays: ");
+    printUnion(arr1, m, arr2, n);
+    return 0;
+}
